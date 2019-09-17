@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.sandbox.mapper.UserMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.test.sandbox.entity.User">
+                <id column="id" property="id"/>
+                <result column="username" property="username"/>
+                <result column="password" property="password"/>
+                <result column="name" property="name"/>
+                <result column="english_name" property="englishName"/>
+                <result column="sex" property="sex"/>
+                <result column="phone" property="phone"/>
+                <result column="status" property="status"/>
+                <result column="email" property="email"/>
+                <result column="user_number" property="userNumber"/>
+                <result column="login_count" property="loginCount"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, name, english_name, sex, phone, status, email, user_number, login_count
+    </sql>
+
+    <insert id="addUser" parameterType="com.example.test.sandbox.entity.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user(
+        username,
+        password,
+        name,
+        english_name,
+        sex,
+        phone,
+        status,
+        email,
+        user_number,
+        login_count
+        )
+        VALUES
+        (
+        #{username},
+        #{password},
+        #{name},
+        #{english_name},
+        #{sex},
+        #{phone},
+        #{status},
+        #{email},
+        #{user_number},
+        #{login_count}
+        );
+    </insert>
+
+    <update id="updateLoginCount">
+        update user
+        set
+        login_count=login_count+1
+        where
+        username=#{username};
+    </update>
+
+    <update id="updateAll">
+        update user
+        <set>
+            <if test="username!=null and username=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password=''">
+                password=#{password},
+            </if>
+            <if test="name!=null and name=''">
+                name=#{name},
+            </if>
+            <if test="englishName!=null and englishName=''">
+                englishName=#{englishName},
+            </if>
+            <if test="sex!=null and sex=''">
+                sex=#{sex},
+            </if>
+            <if test="phone!=null and phone=''">
+                phone=#{phone},
+            </if>
+            <if test="status!=null and status=''">
+                status=#{status},
+            </if>
+            <if test="email!=null and email=''">
+                email=#{email},
+            </if>
+            <if test="userNumber!=null and userNumber=''">
+                userNumber=#{userNumber},
+            </if>
+            <if test="loginCount!=null and loginCount=''">
+                loginCount=#{loginCount},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectAll" resultType="com.example.test.sandbox.entity.User">
+        select * from
+        user
+        <where>
+            <if test="username!=null">
+                username=#{username}
+            </if>
+            <if test="password!=null">
+                and password=#{password}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="englishName!=null">
+                and englishName=#{englishName}
+            </if>
+            <if test="sex!=null">
+                and sex=#{sex}
+            </if>
+            <if test="phone!=null">
+                and phone=#{phone}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+            <if test="email!=null">
+                and email=#{email}
+            </if>
+            <if test="userNumber!=null">
+                and userNumber=#{userNumber}
+            </if>
+            <if test="loginCount!=null">
+                and loginCount=#{loginCount}
+            </if>
+        </where>
+    </select>
+
+</mapper>

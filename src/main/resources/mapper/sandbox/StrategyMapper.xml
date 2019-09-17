@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.sandbox.mapper.StrategyMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.test.sandbox.domian.StrategyDo">
+                <id column="id" property="id"/>
+                <result column="strategy_id" property="strategyId"/>
+                <result column="strategy_name" property="strategyName"/>
+                <result column="strategy_state" property="strategyState"/>
+                <result column="strategy_createtime" property="strategyCreatetime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, strategy_id, strategy_name, strategy_state, strategy_createtime
+    </sql>
+
+    <select id="selectAll" resultType="com.example.test.sandbox.domian.StrategyDo">
+        select * from strategy
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="strategy_id!=null">
+                and strategy_id=#{strategyId}
+            </if>
+            <if test="strategy_id!=null">
+                and strategy_name=#{strategyName}
+            </if>
+            and strategy_state=1
+        </where>
+    </select>
+
+
+    <insert id="insertStrategy" parameterType="com.example.test.sandbox.domian.StrategyDo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into strategyDO (strategy_id,strategy_name,strategy_state ,strategy_createtime) values
+        (#{strategyId},#{strategyName},#{strategyState},now());
+    </insert>
+
+
+    <select id="listStrategy" resultType="com.example.test.sandbox.domian.StrategyDo">
+        select * from strategyDO where strategy_state = 1
+    </select>
+
+    <select id="listByCondition" resultType="com.qf.springboot.demo.entity.Strategy" parameterType="String">
+        select * from strategy where strategy_name like CONCAT('%',#{strategyName},'%')
+        and strategy_id like CONCAT('%',#{strategyId},'%')
+    </select>
+
+
+</mapper>
