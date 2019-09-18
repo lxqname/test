@@ -5,6 +5,7 @@ import com.example.test.sandbox.domian.StrategyRuleDo;
 import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.StrategyRule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @author jie
  * @since 2019-09-16
  */
+@Repository
 public interface StrategyRuleMapper extends BaseMapper<StrategyRule> {
     /**
      * 根据策略id查询其所有的策略规则对象集合

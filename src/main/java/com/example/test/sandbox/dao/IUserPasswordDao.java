@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 86151
+ */
 @Repository
 public interface IUserPasswordDao {
     /**

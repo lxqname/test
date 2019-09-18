@@ -1,8 +1,9 @@
 package com.example.test.sandbox.service;
 
+
 import com.example.test.sandbox.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.test.sandbox.vo.UserVo;
+
 
 /**
  * <p>
@@ -16,26 +17,26 @@ public interface IUserService extends IService<User> {
     /**
      * 登入核对功能
      *
-     * @param userVo
+     * @param user
      * @return
      */
-    User toCheckLogin(UserVo userVo);
+    User toCheckLogin(User user);
 
     /**
      * 查看用户信息
      *
-     * @param userVo
+     * @param user
      * @return
      */
-    User selectByUserName(UserVo userVo);
+    User selectByUserName(User user);
 
     /**
      * 注册用户
      *
-     * @param userVo
+     * @param user
      * @return
      */
-    User addUser(UserVo userVo);
+    User addUser(User user);
 
     /**
      * 判断用户名是否可用
@@ -63,9 +64,33 @@ public interface IUserService extends IService<User> {
 
     /**
      * 记录登入次数
-     *
+     * @param username
      * @return
      */
     User updateLoginCount(String username);
+
+    /**
+     * 配置密码策略
+     *
+     * @param strategyId
+     * @param userId
+     * @return
+     */
+    boolean configureStrategy( int strategyId, int userId);
+
+    /**
+     * 修改账号信息
+     * @param user
+     * @return
+     */
+    User updateAll(User user);
+
+
+    /**
+     * 批量删除
+     * @param checkedId
+     * @return
+     */
+    Integer falseDelete(String checkedId);
 
 }

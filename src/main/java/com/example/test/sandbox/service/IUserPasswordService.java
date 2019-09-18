@@ -1,10 +1,9 @@
 package com.example.test.sandbox.service;
 
-import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.UserPassword;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
+
 
 /**
  * <p>
@@ -20,14 +19,9 @@ public interface IUserPasswordService extends IService<UserPassword> {
      *
      * @param password
      * @param userId
+     * @param n
      * @return
      */
     boolean listUserPassword(String password, int userId,int n);
 
-    /**
-     * 根据用户id查询其限制密码的规则
-     * @param userId
-     * @return
-     */
-    List<Rule> selectByUserId(Integer userId);
 }

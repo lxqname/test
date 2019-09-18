@@ -31,8 +31,23 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 记录登入次数
      *
+     * @param userDo
      * @return
      */
     Integer updateLoginCount(UserDo userDo);
+
+    /**
+     * 修改账号信息
+     * @param userDo
+     * @return
+     */
+    Integer updateAll(UserDo userDo);
+
+
+    /**
+     * @param checkedId
+     * @return
+     */
+    int falseDelete(String[] checkedId);
 
 }

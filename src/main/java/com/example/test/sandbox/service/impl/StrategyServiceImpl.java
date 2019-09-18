@@ -2,16 +2,12 @@ package com.example.test.sandbox.service.impl;
 
 import com.example.test.sandbox.dao.IRuleDao;
 import com.example.test.sandbox.dao.IStrategyDao;
-import com.example.test.sandbox.dao.IStrategyRuleDao;
 import com.example.test.sandbox.domian.StrategyDo;
 import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.Strategy;
 import com.example.test.sandbox.mapper.StrategyMapper;
 import com.example.test.sandbox.service.IStrategyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.test.sandbox.util.RandomUtil;
-import com.example.test.sandbox.vo.StrategyVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +31,6 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, StrategyDo>
     @Autowired
     private IRuleDao ruleDao;
 
-    @Autowired
-    private IStrategyRuleDao strategyRuleDao;
-
 
     @Override
     public List<Rule> selectByStrategyId(Integer strategyId) {
@@ -47,14 +40,8 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, StrategyDo>
 
 
     @Override
-    public Strategy insertStrategy(StrategyVo strategyVo) {
-        Strategy strategy = new Strategy();
-        BeanUtils.copyProperties(strategyVo,strategy);
-        //添加策略进数据库
+    public Strategy insertStrategy(Strategy strategy) {
         Strategy strategy1 = strategyDao.insertStrategy(strategy);
-        List<Rule> rules = strategy.getRules();
-        //把策略id和规则id添加到中间表中
-        rules.forEach(item->strategyRuleDao.addStrategyRule(strategy.getId(),item.getId()));
         return strategy1;
     }
 
@@ -73,10 +60,13 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, StrategyDo>
 
 
     @Override
-    public List<Strategy> listByCondition(StrategyVo strategyVo) {
-        Strategy strategy = new Strategy();
-        BeanUtils.copyProperties(strategyVo,strategy);
+    public List<Strategy> listByCondition(Strategy strategy) {
         //模糊查询
         return strategyDao.listByCondition(strategy);
+    }
+
+    @Override
+    public Strategy getByUserId(Integer userId) {
+        return strategyDao.getByUserId(userId);
     }
 }

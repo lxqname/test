@@ -4,7 +4,7 @@ import com.example.test.sandbox.domian.StrategyDo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.Strategy;
-import com.example.test.sandbox.vo.StrategyVo;
+
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public interface IStrategyService extends IService<StrategyDo> {
      * @param strategyVo
      * @return
      */
-    Strategy insertStrategy(StrategyVo strategyVo);
+    Strategy insertStrategy(Strategy strategyVo);
 
 
     /**
@@ -55,12 +55,18 @@ public interface IStrategyService extends IService<StrategyDo> {
     /**
      * 条件查询并分页
      *
-     * @param strategyVo
+     * @param strategy
      * @return
      */
 
-    List<Strategy> listByCondition(StrategyVo strategyVo);
+    List<Strategy> listByCondition(Strategy strategy);
 
+    /**
+     * 通过userId获得策略
+     * @param userId
+     * @return
+     */
+    Strategy getByUserId(Integer userId);
 
 
 }

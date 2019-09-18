@@ -1,7 +1,6 @@
 package com.example.test.sandbox.controller;
 
 
-import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.User;
 import com.example.test.sandbox.service.IUserPasswordService;
 import com.example.test.sandbox.service.IUserService;
@@ -50,16 +49,6 @@ public class UserPasswordController {
         }
         userService.updateLoginCount(user.getUsername());
         return "修改密码成功";
-    }
-
-    /**
-     * 根据用户id返回其限制密码的规则
-     * @param userId
-     * @return
-     */
-    @PostMapping("/getRuleByUserId")
-    public List<Rule> getRuleByUserId(Integer userId){
-        return userPasswordService.selectByUserId(userId);
     }
 
 

@@ -1,6 +1,8 @@
 package com.example.test.sandbox.dao;
 
+import com.example.test.sandbox.domian.UserDo;
 import com.example.test.sandbox.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -53,10 +55,37 @@ public interface IUserDao {
      */
     User toCheckUserNumber(User user);
 
+
     /**
      * 记录登入次数
-     *
+     * @param username
      * @return
      */
     User updateLoginCount(String username);
+
+    /**
+     * 配置密码策略
+     *
+     * @param strategyId
+     * @param userId
+     * @return
+     */
+    boolean configureStrategy(int strategyId, int userId);
+
+    /**
+     * 修改账号信息
+     * @param user
+     * @return
+     */
+    User updateAll(User user);
+
+
+    /**
+     *  批量删除
+     * @param checkedId
+     * @return
+     */
+    int falseDelete(String[] checkedId);
+
+
 }

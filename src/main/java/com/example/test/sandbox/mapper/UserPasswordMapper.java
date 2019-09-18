@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface UserPasswordMapper extends BaseMapper<UserPassword> {
     /**
-     * 根据userid查询所有密码
+     * 根据userId查询所有密码
      *
      * @param userId
      * @return

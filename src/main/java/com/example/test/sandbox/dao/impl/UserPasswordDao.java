@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 86151
+ */
 public class UserPasswordDao implements IUserPasswordDao {
 
     @Autowired
     private UserPasswordMapper userPasswordMapper;
+
     @Override
     public List<UserPassword> listUserPassword(int userId) {
         //根据用户id查询其密码集合

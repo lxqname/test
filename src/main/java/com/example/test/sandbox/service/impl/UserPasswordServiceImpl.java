@@ -1,11 +1,11 @@
 package com.example.test.sandbox.service.impl;
 
 import com.example.test.sandbox.dao.IRuleDao;
+import com.example.test.sandbox.dao.IStrategyDao;
 import com.example.test.sandbox.dao.IUserPasswordDao;
-import com.example.test.sandbox.dao.IUserStrategyDao;
 import com.example.test.sandbox.entity.Rule;
+import com.example.test.sandbox.entity.Strategy;
 import com.example.test.sandbox.entity.UserPassword;
-import com.example.test.sandbox.entity.UserStrategy;
 import com.example.test.sandbox.mapper.UserPasswordMapper;
 import com.example.test.sandbox.service.IUserPasswordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,11 +29,7 @@ public class UserPasswordServiceImpl extends ServiceImpl<UserPasswordMapper, Use
     private IUserPasswordDao userPasswordDao;
 
     @Autowired
-    private IUserStrategyDao userStrategyDao;
-
-
-    @Autowired
-    private IRuleDao ruleDao;
+    private IStrategyDao strategyDao;
 
     @Override
     public boolean listUserPassword(String password, int userId,int n) {
@@ -48,14 +44,4 @@ public class UserPasswordServiceImpl extends ServiceImpl<UserPasswordMapper, Use
         return false;
     }
 
-    @Override
-    public List<Rule> selectByUserId(Integer userId) {
-        //根据用户id查询其所有的UserStrategy
-        List<UserStrategy> userStrategies = userStrategyDao.selectByUserId(userId);
-        //只要得到最终的UserStrategy（其他的已失效）
-        UserStrategy userStrategy = userStrategies.get(userStrategies.size() - 1);
-        //根据策略id查询其所有的Rule集合
-        List<Rule> rules = ruleDao.findByStrategyId(userStrategy.getStrategyId());
-        return rules;
-    }
 }

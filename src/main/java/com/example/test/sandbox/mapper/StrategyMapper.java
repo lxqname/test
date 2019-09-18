@@ -43,6 +43,11 @@ public interface StrategyMapper extends BaseMapper<StrategyDo> {
 
     List<StrategyDo> listStrategy();
 
+    /**
+     * 条件查询
+     * @param strategyDO
+     * @return
+     */
     List<StrategyDo> listByCondition(StrategyDo strategyDO);
 
 

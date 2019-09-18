@@ -47,14 +47,4 @@ public class RuleDao implements IRuleDao {
         return rules;
     }
 
-    @Override
-    public Rule addRule(Rule rule) {
-        RuleDo ruleDo = new RuleDo();
-        BeanUtils.copyProperties(rule,ruleDo);
-        //添加规则
-        Integer integer = ruleMapper.addRule(ruleDo);
-        RuleDo ruleDo1 = ruleMapper.selectById(ruleDo.getId());
-        BeanUtils.copyProperties(ruleDo1,rule);
-        return rule;
-    }
 }

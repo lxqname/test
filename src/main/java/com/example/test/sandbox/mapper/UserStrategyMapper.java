@@ -4,6 +4,7 @@ import com.example.test.sandbox.domian.UserStrategyDo;
 import com.example.test.sandbox.entity.UserStrategy;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author jie
  * @since 2019-09-16
  */
+@Repository
 public interface UserStrategyMapper extends BaseMapper<UserStrategy> {
     /**
      * 根据userId查询所对应的UserStrategy

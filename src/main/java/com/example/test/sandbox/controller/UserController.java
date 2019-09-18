@@ -4,11 +4,12 @@ package com.example.test.sandbox.controller;
 import com.example.test.sandbox.entity.User;
 import com.example.test.sandbox.service.IUserService;
 import com.example.test.sandbox.util.PasswordStrength;
-import com.example.test.sandbox.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -34,16 +35,16 @@ public class UserController {
     /**
      * 登入验证
      *
-     * @param userVo
+     * @param user
      * @param session
      * @return
      */
     @PostMapping("/toCheckLogin")
-    public String toCheckLogin(@RequestBody UserVo userVo, HttpSession session) {
-        User user = userService.toCheckLogin(userVo);
+    public String toCheckLogin(@RequestBody User user, HttpSession session) {
+        User user1 = userService.toCheckLogin(user);
         if (null!=user) {
-            session.setAttribute("userVo", userVo);
-            Integer loginCount = userService.selectByUserName(userVo).getLoginCount();
+            session.setAttribute("user1", user1);
+            Integer loginCount = userService.selectByUserName(user1).getLoginCount();
             if (loginCount == 0) {
                 return "updatePassword";
             }
@@ -60,21 +61,21 @@ public class UserController {
      */
     @PostMapping("/selectUser")
     public User selectUser(HttpSession session) {
-        UserVo userVo = (UserVo) session.getAttribute("userVo");
-        return userService.selectByUserName(userVo);
+        User user = (User) session.getAttribute("user1");
+        return userService.selectByUserName(user);
     }
 
 
     /**
      * 新增用户
      *
-     * @param userVo
+     * @param user
      * @return
      */
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUser(@RequestBody UserVo userVo) {
-        User user = userService.addUser(userVo);
-        if (null!=user) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestBody User user) {
+        User user1 = userService.addUser(user);
+        if (null!=user1) {
             return "login";
         }
         return "register";
@@ -258,5 +259,41 @@ public class UserController {
         return "员工编号以存在";
     }
 
+    /**
+     * 为用户配置策略
+     * @param strategyId
+     * @param userId
+     * @return
+     */
+    @PostMapping("/configureStrategy")
+    public String configureStrategy( int strategyId, int userId){
+        boolean flag = userService.configureStrategy(strategyId, userId);
+        if (flag){
+            return "该用户配置密码策略成功";
+        }
+        return "该用户配置密码策略失败";
+    }
+
+    /**
+     * 编辑用户信息
+     * @param user
+     * @return
+     */
+    @PostMapping("/updateAll")
+    public User updateAll(User user){
+       return userService.updateAll(user);
+    }
+
+    /**
+     * 逻辑删除所选中人员的id
+     */
+    @RequestMapping("doFalseDelete")
+    @ResponseBody
+    public Map<String, Object> doFalseDelete(String checkedId){
+        Map<String, Object> map=new HashMap<String, Object>();
+        userService.falseDelete(checkedId);
+        map.put("message", "删除成功");
+        return map;
+    }
 
 }

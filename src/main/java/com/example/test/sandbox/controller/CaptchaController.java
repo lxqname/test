@@ -61,7 +61,8 @@ public class CaptchaController {
      */
     @PostMapping("/checkCaptcha")
     public String checkCaptcha(String captcha, HttpSession session) {
-        if (!session.getAttribute("captcha").equals(captcha.toUpperCase())) {
+        String a="captcha";
+        if (!session.getAttribute(a).equals(captcha.toUpperCase())) {
             return "验证码不正确";
         }
         return "验证码通过";

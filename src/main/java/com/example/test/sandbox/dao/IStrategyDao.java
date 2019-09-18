@@ -1,21 +1,17 @@
 package com.example.test.sandbox.dao;
 
-import com.example.test.sandbox.entity.Rule;
+
 import com.example.test.sandbox.entity.Strategy;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 86151
+ */
 @Repository
 public interface IStrategyDao {
-
-    /**
-     * 通过策略strategyId查询策略
-     * @param strategyId
-     * @return
-     */
-    Strategy getByStrategyId(String strategyId);
-
 
     /**
      * 新增密码策略
@@ -46,11 +42,19 @@ public interface IStrategyDao {
 
 
     /**
-     * 条件查询并分页
+     * 条件查询
      *
      * @param strategy
      * @return
      */
 
     List<Strategy> listByCondition(Strategy strategy);
+
+    /**
+     * 通过userId获得策略
+     * @param userId
+     * @return
+     */
+    Strategy getByUserId(Integer userId);
+
 }

@@ -22,10 +22,5 @@ public interface IRuleDao {
      */
     List<Rule> findByStrategyId(Integer id);
 
-    /**
-     * 添加规则
-     * @param rule
-     * @return
-     */
-    Rule addRule(Rule rule);
+
 }

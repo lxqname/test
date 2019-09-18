@@ -19,10 +19,4 @@ public interface RuleMapper extends BaseMapper<RuleDo> {
      */
     RuleDo selectById(Integer id);
 
-    /**
-     * 添加规则
-     * @param ruleDo
-     * @return
-     */
-    Integer addRule(RuleDo ruleDo);
 }

@@ -1,12 +1,11 @@
 package com.example.test.sandbox.service.impl;
 
 import com.example.test.sandbox.dao.IUserDao;
+import com.example.test.sandbox.domian.UserDo;
 import com.example.test.sandbox.entity.User;
 import com.example.test.sandbox.mapper.UserMapper;
 import com.example.test.sandbox.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.test.sandbox.vo.UserVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,25 +24,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IUserDao userDao;
 
     @Override
-    public User toCheckLogin(UserVo userVo) {
-        User user = new User();
-        BeanUtils.copyProperties(userVo,user);
+    public User toCheckLogin(User user) {
         //登入验证
         return userDao.toCheckLogin(user);
     }
 
     @Override
-    public User selectByUserName(UserVo userVo) {
-        User user = new User();
-        BeanUtils.copyProperties(userVo,user);
+    public User selectByUserName(User user) {
         //根据用户名查询用户
         return userDao.selectByUserName(user);
     }
 
     @Override
-    public User addUser(UserVo userVo) {
-        User user = new User();
-        BeanUtils.copyProperties(userVo,user);
+    public User addUser(User user) {
         //添加用户
         return userDao.addUser(user);
     }
@@ -70,5 +63,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User updateLoginCount(String username) {
         //更新登入次数
        return userDao.updateLoginCount(username);
+    }
+
+    @Override
+    public boolean configureStrategy(int strategyId, int userId) {
+        return userDao.configureStrategy(strategyId, userId);
+    }
+
+    @Override
+    public User updateAll(User user) {
+        //编辑用户
+       return userDao.updateAll(user);
+    }
+
+    @Override
+    public Integer falseDelete(String checkedId) {
+        return userDao.falseDelete(checkedId.split(","));
     }
 }

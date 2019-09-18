@@ -1,10 +1,10 @@
 package com.example.test.sandbox.controller;
 
 
+import com.example.test.sandbox.entity.Rule;
 import com.example.test.sandbox.entity.Strategy;
 import com.example.test.sandbox.service.IStrategyService;
 import com.example.test.sandbox.util.RegixConstant;
-import com.example.test.sandbox.vo.StrategyVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,19 @@ public class StrategyController {
 
     @Autowired
     IStrategyService strategyService;
+
+
+    /**
+     * 根据策略id
+     * @param strategyId
+     * @return
+     */
+    @PostMapping("/getByStrategyId")
+    public List<Rule> getByStrategyId(Integer strategyId){
+        return strategyService.selectByStrategyId(strategyId);
+    }
+
+
     /**
      * 策略名校验
      *
@@ -59,12 +72,12 @@ public class StrategyController {
     /**
      * 新增策略
      *
-     * @param strategyVo
+     * @param strategy
      * @return
      */
     @PostMapping(value = "/insert")
-    public Strategy insertStrategy(@RequestBody StrategyVo strategyVo) {
-        return strategyService.insertStrategy(strategyVo);
+    public Strategy insertStrategy(@RequestBody Strategy strategy) {
+        return strategyService.insertStrategy(strategy);
     }
 
 
@@ -101,12 +114,23 @@ public class StrategyController {
         strategyName = strategyName == null ? "" : strategyName.trim();
         strategyId = strategyId == null ? "" : strategyId.trim();
         PageHelper.startPage(pageNum, pageSize);
-        StrategyVo strategyVo = new StrategyVo();
-        strategyVo.setStrategyName(strategyName);
-        strategyVo.setStrategyId(strategyId);
-        List<Strategy> strategies = strategyService.listByCondition(strategyVo);
+        Strategy strategy = new Strategy();
+        strategy.setStrategyName(strategyName);
+        strategy.setStrategyId(strategyId);
+        List<Strategy> strategies = strategyService.listByCondition(strategy);
         PageInfo<Strategy> strategyPageInfo = new PageInfo<>(strategies);
         return strategyPageInfo;
+    }
+
+
+    /**
+     * 通过userId获得策略
+     * @param userId
+     * @return
+     */
+    @PostMapping("/getByUserId")
+    public Strategy getByUserId(Integer userId){
+        return strategyService.getByUserId(userId);
     }
 
 }
